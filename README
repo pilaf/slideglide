@@ -1,0 +1,16 @@
+Slideglide v0.2
+-=-=-=-=-=-=-=-
+
+= What is it?
+
+Slideglide is a simple JavaScript slideshow gallery effect using Prototype and Scriptaculous.
+
+= How to use
+
+First, make sure to include prototype.js, effects.js and slideglide.js.
+
+= Demo
+
+See a demo here:
+
+Or clone it and check example.html
