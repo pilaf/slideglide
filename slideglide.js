@@ -2,7 +2,8 @@ if (window.Prototype) {
   /*
    * Options:
    *
-   * - onImageCreate: callback
+   * - onCreateImage: callback
+   * - onPreloadFinish: callback
    * - effectOptions: hash
    *
    */
@@ -45,7 +46,7 @@ if (window.Prototype) {
 
     nextImage: function() {
       if (!this.selectedImage) return;
-      this.selectImage(this.selectedImage.next('img') || this.slider.down('img:first-child'));
+      this.selectImage(this.selectedImage.next('img') || this.slider.down('img'));
     },
 
     prevImage: function() {
@@ -124,6 +125,7 @@ if (window.Prototype) {
     // Check if all initial images were preloaded
     _preloadCheck: function() {
       if (!--this.imagesToPreload) {
+        this.options.onPreloadFinish && this.options.onPreloadFinish();
         this._insertSlider();
       }
     },
