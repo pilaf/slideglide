@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="prototype.js"></script>
+  <script src="effects.js"></script>
+  <script src="slideshow.js"></script>
+  <style>
+  <!--
+    #slideshow {
+      width: 600px;
+      height: 300px;
+      position: relative;
+      margin: 0 auto;
+      border: 1px solid silver;
+    }
+
+    
+    /* Required rules for effect */
+    .slideshow_slider img {
+      vertical-align: middle;
+      margin: 0 10px;
+    }
+  -->
+  </style>
+</head>
+<body>
+  <div id="slideshow"></div>
+  <script><!--
+    var images = [['images/1-thumb.jpg', 'images/1-full.jpg'], ['images/2-thumb.jpg', 'images/2-full.jpg'], ['images/3-thumb.jpg', 'images/3-full.jpg'], ['images/4-thumb.jpg', 'images/4-full.jpg']];
+
+    var slideshow = new Slideshow('slideshow', images, {
+      onCreateImage: function(image) {
+      }
+    });
+  --></script>
+</body>
+</html>
