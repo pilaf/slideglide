@@ -14,6 +14,9 @@ if (window.Prototype) {
     // Initialize options
     this.options = options || {};
 
+    // Extract original afterFinish callback
+    this.originalAfterFinish = options.effectOptions && options.effectOptions.afterFinish;
+
     // This flag indicates if the initial image preload has
     // finished
     this.preloaded = false;
@@ -264,7 +267,7 @@ if (window.Prototype) {
           image.addClassName('selected');
 
           // Run user's custom afterFinish
-          _this.options.effectOptions && _this.options.effectOptions.afterFinish && _this.options.effectOptions.afterFinish();
+          _this.originalAfterFinish && _this.originalAfterFinish();
         }
       }));
 
