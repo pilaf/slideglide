@@ -220,6 +220,7 @@ if (window.Prototype) {
         style: {
           left: (this.container.offsetWidth / 2) - (image.fullsizeWidth / 2) - image.offsetLeft + offsetCorrection + 'px'
         },
+
         sync: true
       }));
 
@@ -229,6 +230,7 @@ if (window.Prototype) {
           width: image.fullsizeWidth + 'px',
           height: image.fullsizeHeight + 'px'
         },
+
         sync: true
       }));
 
@@ -242,22 +244,27 @@ if (window.Prototype) {
             height: selectedImage.thumbnailHeight + 'px'
           },
 
-          sync: true,
-
           afterFinish: function() {
             selectedImage.src = selectedImage.thumbnailSrc;
-          }
+            selectedImage.removeClassName('selected');
+          },
 
+          sync: true,
         }));
       }
 
       var _this = this;
 
-      // Action!
+      // Roll camera!
       this.ongoingEffect = new Effect.Parallel(effects, Object.extend(this.options.effectOptions || {}, {
         afterFinish: function() {
           _this.ongoingEffect = null;
+
           image.src = image.fullsizeSrc;
+          image.addClassName('selected');
+
+          // Run user's custom afterFinish
+          _this.options.effectOptions && _this.options.effectOptions.afterFinish && _this.options.effectOptions.afterFinish();
         }
       }));
 
@@ -274,9 +281,11 @@ if (window.Prototype) {
       // Restore previously selected image to original size
       if (this.selectedImage) {
         this.selectedImage.src = this.selectedImage.thumbnailSrc;
+        this.selectedImage.removeClassName('selected');
       }
 
       image.src = image.fullsizeSrc;
+      image.addClassName('selected');
 
       this.slider.style.left = (this.container.offsetWidth / 2) - (image.fullsizeWidth / 2) - image.offsetLeft + 'px';
 
