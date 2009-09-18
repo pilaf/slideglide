@@ -252,7 +252,7 @@ if (window.Prototype) {
             selectedImage.removeClassName('selected');
           },
 
-          sync: true,
+          sync: true
         }));
       }
 
