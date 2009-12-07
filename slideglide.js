@@ -15,7 +15,7 @@ if (window.Prototype) {
     this.options = options || {};
 
     // Extract original afterFinish callback
-    this.originalAfterFinish = options.effectOptions && options.effectOptions.afterFinish;
+    this.originalAfterFinish = this.options.effectOptions && this.options.effectOptions.afterFinish;
 
     // This flag indicates if the initial image preload has
     // finished
