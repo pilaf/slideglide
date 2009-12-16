@@ -15,15 +15,12 @@ if (window.Prototype) {
     this.options = options || {};
 
     // Extract original afterFinish callback
-    this.originalAfterFinish = options.effectOptions && options.effectOptions.afterFinish;
+    this.originalAfterFinish = this.options.effectOptions && this.options.effectOptions.afterFinish;
 
     // This flag indicates if the initial image preload has
     // finished
     this.preloaded = false;
     this.imagesToPreload = imageUrls.length * 2;
-
-    // Container for images
-    this.images = [];
 
     // The sum of all thumbnail widths plus margins
     this.collapsedWidth = 0;
@@ -55,6 +52,14 @@ if (window.Prototype) {
     prevImage: function() {
       if (!this.selectedImage) return;
       this.selectImage(this.selectedImage.previous('img') || this.slider.down('img:last-child'));
+    },
+
+    selectFirstImage: function() {
+      this.selectImage(this.slider.down('img'));
+    },
+
+    selectLastImage: function() {
+      this.selectImage(this.slider.down('img:last-child'));
     },
 
     addImage: function(thumbnailUrl, fullsizeUrl) {
@@ -168,11 +173,9 @@ if (window.Prototype) {
         }
       });
 
-      // If we're on IE...
-      /*@cc_on
-        // We use a span here because IE6 will only accept inline-block for naturally inline elements
-        this.slider.appendChild(new Element('span', {style: 'display: inline-block; height: 100%; width: 0px;'}).update('&#8205;'));
-      @*/
+      // TODO: This used to be an IE-only hack, but the problem seems to have transpired
+      // to other browsers, so we leave it uncommented... figure out what's wrong!
+      this.slider.appendChild(new Element('span', {style: 'display: inline-block; height: 100%; width: 0px;'}).update('&#8205;'));
 
       //this.container.insert({bottom: this.slider});
     },
