@@ -62,7 +62,27 @@ if (window.Prototype) {
       this.selectImage(this.slider.down('img:last-child'));
     },
 
-    addImage: function(thumbnailUrl, fullsizeUrl) {
+    removeImage: function(image) {
+      var moveTo = image.next('img') || image.previous('img');
+
+      if (window.Effect && (this.options.removeEffect !== false)) {
+
+        new (this.options.removeEffect || Effect.Fade)(image, Object.extend(this.options.effectOptions || {}, {
+          afterFinish: (function() {
+            image.remove();
+            if (moveTo) this.selectImage(moveTo);
+          }).bind(this)
+        }));
+
+      } else {
+
+        image.remove();
+        if (moveTo) this.selectImage(moveTo);
+
+      }
+    },
+
+    addImage: function(thumbnailUrl, fullsizeUrl, metadata) {
       // Create a closure alias for the calling context (used in callbacks below)
       var _this = this;
 
@@ -71,7 +91,7 @@ if (window.Prototype) {
 
       // Run custom initialization of the image element if available
       if (this.options.onCreateImage) {
-        this.options.onCreateImage(thumbnail);
+        this.options.onCreateImage(thumbnail, metadata);
       }
 
       // Define an onload callback for the thumbnail
@@ -184,7 +204,7 @@ if (window.Prototype) {
     _initializeImages: function(imageUrls) {
       var _this = this;
       imageUrls.each(function(imageUrl) {
-        _this.addImage(imageUrl[0], imageUrl[1]);
+        _this.addImage(imageUrl[0], imageUrl[1], imageUrl[2]);
       });
     },
 
